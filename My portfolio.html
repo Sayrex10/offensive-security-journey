@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ilyass Benfdil — IT & Security Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #10141a;
+    --surface2: #161c25;
+    --border: #1e2a38;
+    --accent: #00e5a0;
+    --accent-dim: #00c48820;
+    --accent2: #3b82f6;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── GRID NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,12,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo span { color: var(--text-muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 .accent { color: var(--accent); }
+
+  .hero-title-sub {
+    font-family: var(--mono);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .hero-desc {
+    max-width: 600px;
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+
+  .btn-primary:hover {
+    background: #00ffc4;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,229,160,0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-secondary:hover {
+    background: var(--accent-dim);
+    transform: translateY(-1px);
+  }
+
+  /* ─── TERMINAL BLINK ─── */
+  .blink {
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{ opacity:1 } 50%{ opacity:0 } }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0 2rem;
+  }
+
+  /* ─── ABOUT / CONTACT STRIP ─── */
+  .contact-strip {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover { color: var(--accent); }
+
+  .contact-item .icon {
+    font-size: 1rem;
+  }
+
+  /* ─── SKILLS GRID ─── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .skill-card-cat {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text-dim);
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-block {
+    border-left: 2px solid var(--border);
+    padding-left: 2rem;
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .exp-block::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-title {
+    font-family: var(--mono);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-location {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .exp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .exp-list li {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .exp-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+    top: 0.1em;
+  }
+
+  /* ─── PROJECTS ─── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    transition: border-color 0.25s, transform 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,229,160,0.08);
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .project-icon {
+    font-size: 1.5rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .project-link {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .project-link:hover { color: var(--accent); }
+
+  .project-name {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 3px;
+    color: var(--accent);
+  }
+
+  /* ─── CERTS & EDUCATION ─── */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+
+  .cert-card:hover { border-color: var(--accent2); }
+
+  .cert-badge {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .cert-status {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent2);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── STATUS BADGE ─── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.9rem;
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,229,160,0.25);
+    border-radius: 20px;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,229,160,0.4); }
+    50% { box-shadow: 0 0 0 5px rgba(0,229,160,0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    nav { padding: 1rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.7rem; }
+    section { padding: 4rem 1.25rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .reveal { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>ilyass.benfdil</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="status-badge">
+    <span class="status-dot"></span>
+    Open to opportunities · Marrakech, Morocco
+  </div>
+  <div class="hero-eyebrow">IT & Cybersecurity Specialist</div>
+  <h1>Ilyass<br><span class="accent">Benfdil</span><span class="blink" style="color:var(--accent)">_</span></h1>
+  <p class="hero-title-sub">Systems · Security · Infrastructure</p>
+  <p class="hero-desc">
+    Versatile IT specialist with hands-on experience in web development, system security, and infrastructure management. I build and secure things — from Linux mail servers to web application hardening — with a focus on doing it right the first time.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="mailto:benfdilprofessional@gmail.com" class="btn btn-secondary">Get In Touch</a>
+    <a href="https://github.com/Sayrex01" target="_blank" class="btn btn-secondary">GitHub ↗</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="section-label">// 01 · About</div>
+  <h2>Who I Am</h2>
+  <p style="max-width:680px; color:var(--text-dim); line-height:1.8; font-size:1rem; margin-bottom:1.5rem;">
+    Self-driven IT professional based in Marrakech, Morocco. I've built real systems — deployed Linux VPS environments, configured SMTP infrastructure from scratch, hardened servers, and practiced web security in hands-on lab environments. I learn by doing, and I ship things that work.
+  </p>
+  <p style="max-width:680px; color:var(--text-dim); line-height:1.8; font-size:1rem;">
+    Currently pursuing Cambridge International A-Levels independently while actively hunting bugs and building on TryHackMe (top 6%). I'm available immediately for full-time, freelance, or internship roles.
+  </p>
+  <div class="contact-strip">
+    <a class="contact-item" href="tel:+212684675333">
+      <span class="icon">📞</span>+212 684 675 333
+    </a>
+    <a class="contact-item" href="mailto:benfdilprofessional@gmail.com">
+      <span class="icon">✉️</span>benfdilprofessional@gmail.com
+    </a>
+    <a class="contact-item" href="https://www.linkedin.com/in/eliass-benfdil/" target="_blank">
+      <span class="icon">🔗</span>LinkedIn
+    </a>
+    <a class="contact-item" href="https://github.com/Sayrex01" target="_blank">
+      <span class="icon">🐙</span>GitHub
+    </a>
+    <a class="contact-item" href="https://tryhackme.com/p/Sayrex01" target="_blank">
+      <span class="icon">🎯</span>TryHackMe
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="section-label">// 02 · Skills</div>
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-cat">Security</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Web App Security</span>
+        <span class="skill-tag">Vulnerability Scanning</span>
+        <span class="skill-tag">Nmap</span>
+        <span class="skill-tag">Wireshark</span>
+        <span class="skill-tag">Incident Response</span>
+        <span class="skill-tag">Hardening</span>
+        <span class="skill-tag">CTF / Labs</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-cat">Infrastructure</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Linux (Kali / Ubuntu)</span>
+        <span class="skill-tag">VPS (OVHcloud)</span>
+        <span class="skill-tag">SSH</span>
+        <span class="skill-tag">Firewall Config</span>
+        <span class="skill-tag">DNS</span>
+        <span class="skill-tag">Active Directory basics</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-cat">Email & SMTP</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SMTP Server Config</span>
+        <span class="skill-tag">SPF</span>
+        <span class="skill-tag">DKIM</span>
+        <span class="skill-tag">Email Deliverability</span>
+        <span class="skill-tag">DNS Records</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-cat">Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">WordPress / CMS</span>
+        <span class="skill-tag">Python (basic)</span>
+        <span class="skill-tag">Bash scripting</span>
+        <span class="skill-tag">HTML / CSS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-cat">Support & Systems</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Hardware Repair</span>
+        <span class="skill-tag">Remote Troubleshooting</span>
+        <span class="skill-tag">Windows (Advanced)</span>
+        <span class="skill-tag">Help Desk</span>
+        <span class="skill-tag">Networking</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-cat">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">English (Fluent)</span>
+        <span class="skill-tag">Arabic (Fluent)</span>
+        <span class="skill-tag">French (Learning)</span>
+        <span class="skill-tag">Remote work</span>
+        <span class="skill-tag">Self-management</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="reveal">
+  <div class="section-label">// 03 · Experience</div>
+  <h2>Experience</h2>
+
+  <div class="exp-block">
+    <div class="exp-period">2023 – Present</div>
+    <div class="exp-title">Freelance IT & Systems Support Specialist</div>
+    <div class="exp-location">Remote · Self-employed</div>
+    <ul class="exp-list">
+      <li>Built and deployed WordPress websites and CMS systems for small business clients</li>
+      <li>Administered Linux VPS environments (OVHcloud) via SSH and remote access</li>
+      <li>Installed and configured SMTP mail servers with SPF, DKIM, and DNS records for secure email delivery</li>
+      <li>Configured firewall rules and performed server hardening to reduce attack surface</li>
+      <li>Monitored server health, performed system updates, and maintained uptime</li>
+      <li>Diagnosed and resolved hardware, OS, and network issues for clients remotely and on-site</li>
+      <li>Implemented cybersecurity hardening and ran vulnerability scans on client systems</li>
+      <li>Provided technical guidance to users on security practices and system usage</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <div class="section-label">// 04 · Projects</div>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-icon">🖥️</span>
+        <div class="project-links">
+          <a href="https://github.com/Sayrex01" target="_blank" class="project-link" title="GitHub">⎋</a>
+        </div>
+      </div>
+      <div class="project-name">Linux Mail Server Deployment</div>
+      <p class="project-desc">
+        Deployed a production-grade Linux VPS on OVHcloud. Installed and configured an SMTP mail server from scratch, implemented SPF and DKIM DNS records for deliverability and anti-spoofing, set up firewall rules, and maintained ongoing system security and patches.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Linux</span>
+        <span class="tech-tag">SMTP</span>
+        <span class="tech-tag">SPF/DKIM</span>
+        <span class="tech-tag">OVHcloud</span>
+        <span class="tech-tag">Firewall</span>
+        <span class="tech-tag">DNS</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-icon">🔍</span>
+        <div class="project-links">
+          <a href="https://github.com/Sayrex01" target="_blank" class="project-link" title="GitHub">⎋</a>
+        </div>
+      </div>
+      <div class="project-name">Linux Security & Networking Lab</div>
+      <p class="project-desc">
+        Hands-on security lab environment covering network analysis with Wireshark, vulnerability scanning with Nmap, controlled web security testing, and log/event investigation. Built to sharpen offensive and defensive fundamentals.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Wireshark</span>
+        <span class="tech-tag">Nmap</span>
+        <span class="tech-tag">Linux</span>
+        <span class="tech-tag">SIEM basics</span>
+        <span class="tech-tag">Log analysis</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-icon">🕸️</span>
+        <div class="project-links">
+          <a href="https://github.com/Sayrex01" target="_blank" class="project-link" title="GitHub">⎋</a>
+        </div>
+      </div>
+      <div class="project-name">Cybersecurity Practice Lab</div>
+      <p class="project-desc">
+        Legal web exploitation practice in isolated lab environments. Conducted vulnerability scans, practiced common web attack vectors (SQLi, XSS, IDOR), and analyzed network traffic to identify attack signatures. Foundation for bug bounty work.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Web Exploitation</span>
+        <span class="tech-tag">Burp Suite</span>
+        <span class="tech-tag">SQLi</span>
+        <span class="tech-tag">XSS</span>
+        <span class="tech-tag">TryHackMe</span>
+        <span class="tech-tag">PortSwigger</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-icon">🌐</span>
+        <div class="project-links">
+          <a href="https://github.com/Sayrex01" target="_blank" class="project-link" title="GitHub">⎋</a>
+        </div>
+      </div>
+      <div class="project-name">WordPress CMS Deployments</div>
+      <p class="project-desc">
+        Built and deployed WordPress sites for small business clients — theme customization, plugin configuration, basic SEO setup, and ongoing maintenance. Delivered full projects remotely with client handoff documentation.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">WordPress</span>
+        <span class="tech-tag">CMS</span>
+        <span class="tech-tag">HTML/CSS</span>
+        <span class="tech-tag">Client Work</span>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER FOR GITHUB REPOS -->
+    <div class="project-card" style="border-style: dashed; opacity: 0.6;">
+      <div class="project-header">
+        <span class="project-icon">📁</span>
+      </div>
+      <div class="project-name">More on GitHub →</div>
+      <p class="project-desc">
+        CTF writeups, security scripts, and lab notes are being pushed to GitHub. Check back soon or visit the profile directly.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Coming soon</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS & EDUCATION -->
+<section id="education" class="reveal">
+  <div class="section-label">// 05 · Credentials</div>
+  <h2>Education & Certifications</h2>
+
+  <!-- Education -->
+  <div style="margin-bottom:2.5rem;">
+    <div class="exp-block">
+      <div class="exp-period">Expected June 2027</div>
+      <div class="exp-title">Cambridge International A-Levels</div>
+      <div class="exp-location">Private Candidate · Self-Study</div>
+      <ul class="exp-list">
+        <li>Mathematics & Further Mathematics</li>
+        <li>Physics</li>
+        <li>Computer Science</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Certs -->
+  <div class="section-label" style="margin-bottom:1rem;">In Progress</div>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <span class="cert-badge">🎯</span>
+      <div>
+        <div class="cert-name">THM SEC101</div>
+        <div class="cert-status">In Progress · TryHackMe</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-badge">🔐</span>
+      <div>
+        <div class="cert-name">THM PN1 (Pre-Security)</div>
+        <div class="cert-status">In Progress · TryHackMe</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-badge">🖥️</span>
+      <div>
+        <div class="cert-name">CompTIA A+</div>
+        <div class="cert-status">In Progress · Self-Study</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-badge">🏆</span>
+      <div>
+        <div class="cert-name">TryHackMe — Top 6%</div>
+        <div class="cert-status">88+ Rooms Completed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="section-label">// 06 · Contact</div>
+  <h2>Let's Work Together</h2>
+  <p style="max-width:540px; color:var(--text-dim); line-height:1.8; margin-bottom:2.5rem;">
+    Available for full-time roles, freelance contracts, internships, or volunteer work. Willing to travel. References available on request.
+  </p>
+  <div class="contact-strip" style="flex-direction:column; gap:1.25rem; align-items:flex-start;">
+    <a class="contact-item" href="tel:+212684675333" style="font-size:1rem;">
+      <span class="icon">📞</span>+212 684 675 333
+    </a>
+    <a class="contact-item" href="mailto:benfdilprofessional@gmail.com" style="font-size:1rem;">
+      <span class="icon">✉️</span>benfdilprofessional@gmail.com
+    </a>
+    <a class="contact-item" href="https://www.linkedin.com/in/eliass-benfdil/" target="_blank" style="font-size:1rem;">
+      <span class="icon">🔗</span>linkedin.com/in/eliass-benfdil
+    </a>
+    <a class="contact-item" href="https://github.com/Sayrex01" target="_blank" style="font-size:1rem;">
+      <span class="icon">🐙</span>github.com/Sayrex01
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built by Ilyass Benfdil · 2025 · Marrakech, Morocco ·
+    <a href="mailto:benfdilprofessional@gmail.com">benfdilprofessional@gmail.com</a>
+  </p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}`
+        ? 'var(--accent)'
+        : '';
+    });
+  });
+</script>
+</body>
+</html>
